@@ -1,21 +1,21 @@
-let JavaScript = require('./JavaScript');
+let JavaScript = require('./JavaScript')
 
 class React extends JavaScript {
-    /**
-     * Required dependencies for the component.
-     */
-    dependencies() {
-        return ['babel-preset-react'].concat(super.dependencies());
-    }
+  /**
+   * Required dependencies for the component.
+   */
+  dependencies() {
+    return ['@babel/preset-react'].concat(super.dependencies())
+  }
 
-    /**
-     * Babel config to be merged with Mix's defaults.
-     */
-    babelConfig() {
-        return {
-            presets: ['react']
-        };
+  /**
+   * Babel config to be merged with Mix's defaults.
+   */
+  babelConfig() {
+    return {
+      presets: ['@babel/preset-react']
     }
+  }
 }
 
-module.exports = React;
+module.exports = React

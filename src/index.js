@@ -13,19 +13,19 @@
  * We'll begin by pulling in a few globals that Mix often uses.
  */
 
-require('./helpers');
-require('dotenv').config();
+require('./helpers')
+require('dotenv').config()
 
-global.path = require('path');
-global.File = require('./File');
+global.path = require('path')
+global.File = require('./File')
 
 /**
  * This config object is what Mix will reference, when it's time
  * to dynamically build up your Webpack configuration object.
  */
 
-global.Config = require('./config')();
-global.Mix = new (require('./Mix'))();
+global.Config = require('./config')()
+global.Mix = new (require('./Mix'))()
 
 /**
  * If we're working in a Laravel app, we'll explicitly
@@ -33,7 +33,7 @@ global.Mix = new (require('./Mix'))();
  */
 
 if (Mix.sees('laravel')) {
-    Config.publicPath = 'public';
+  Config.publicPath = 'public'
 }
 
 /**
@@ -43,19 +43,14 @@ if (Mix.sees('laravel')) {
  */
 
 Mix.listen('init', () => {
-    if (Mix.shouldHotReload()) {
-        let http = process.argv.includes('--https') ? 'https' : 'http';
+  if (Mix.shouldHotReload()) {
+    let http = process.argv.includes('--https') ? 'https' : 'http'
 
-        new File(path.join(Config.publicPath, 'hot')).write(
-            http +
-                '://' +
-                Config.hmrOptions.host +
-                ':' +
-                Config.hmrOptions.port +
-                '/'
-        );
-    }
-});
+    new File(path.join(Config.publicPath, 'hot')).write(
+      http + '://' + Config.hmrOptions.host + ':' + Config.hmrOptions.port + '/'
+    )
+  }
+})
 
 /**
  * Mix exposes a simple, fluent API for activating many common build
@@ -63,9 +58,9 @@ Mix.listen('init', () => {
  * all calls to this fluent API will update the above config.
  */
 
-let Api = require('./Api');
-let api = new Api();
+let Api = require('./Api')
+let api = new Api()
 
-module.exports = api;
-module.exports.mix = api; // Deprecated.
-module.exports.config = Config;
+module.exports = api
+module.exports.mix = api // Deprecated.
+module.exports.config = Config

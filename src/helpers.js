@@ -1,4 +1,4 @@
-let objectValues = require('lodash').values;
+let objectValues = require('lodash').values
 
 /**
  * Generic tap function.
@@ -7,10 +7,10 @@ let objectValues = require('lodash').values;
  * @param {Function} callback
  */
 global.tap = function(val, callback) {
-    callback(val);
+  callback(val)
 
-    return val;
-};
+  return val
+}
 
 /**
  * Add tap to arrays.
@@ -19,13 +19,13 @@ global.tap = function(val, callback) {
  * @param {Function} callback
  */
 Object.defineProperty(Array.prototype, 'tap', {
-    value: function(callback) {
-        if (this.length) {
-            callback(this);
-        }
-        return this;
+  value: function(callback) {
+    if (this.length) {
+      callback(this)
     }
-});
+    return this
+  }
+})
 
 /**
  * Reject items from an array.
@@ -35,10 +35,10 @@ Object.defineProperty(Array.prototype, 'tap', {
  */
 
 Object.defineProperty(Array.prototype, 'reject', {
-    value: function(callback) {
-        return this.filter(item => !callback(item));
-    }
-});
+  value: function(callback) {
+    return this.filter(item => !callback(item))
+  }
+})
 
 /**
  * Flatten the given array.
@@ -46,8 +46,8 @@ Object.defineProperty(Array.prototype, 'reject', {
  * @param {Array} arr
  */
 global.flatten = function(arr) {
-    return [].concat.apply([], objectValues(arr));
-};
+  return [].concat.apply([], objectValues(arr))
+}
 
 /**
  * Sort object by keys
@@ -55,7 +55,7 @@ global.flatten = function(arr) {
  * @param {Object} obj
  */
 global.sortObjectKeys = obj => {
-    return Object.keys(obj)
-        .sort()
-        .reduce((r, k) => ((r[k] = obj[k]), r), {});
-};
+  return Object.keys(obj)
+    .sort()
+    .reduce((r, k) => ((r[k] = obj[k]), r), {})
+}

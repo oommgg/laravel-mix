@@ -1,10 +1,10 @@
 class AutomaticComponent {
-    /**
-     * Create a new component instance.
-     */
-    constructor() {
-        this.passive = true;
-    }
+  /**
+   * Create a new component instance.
+   */
+  constructor() {
+    this.passive = true
+  }
 }
 
-module.exports = AutomaticComponent;
+module.exports = AutomaticComponent
