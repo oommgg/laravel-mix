@@ -1,5 +1,6 @@
 let paths = new (require('./Paths'))()
-let webpackMerge = require('webpack-merge')
+// let webpackMerge = require('webpack-merge')
+let deepMerge = require('deepmerge')
 
 module.exports = function() {
   return {
@@ -143,39 +144,45 @@ module.exports = function() {
         }
       })
 
-      if (this.babelConfig) {
-        options = webpackMerge.smart(options, this.babelConfig)
-      }
+      // if (this.babelConfig) {
+      //   options = webpackMerge.smart(options, this.babelConfig)
+      // }
 
-      return webpackMerge.smart(
+      return deepMerge.all(
+        [
+          {
+            cacheDirectory: true,
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: false,
+                  targets: {
+                    browsers: ['> 2%']
+                  },
+                  useBuiltIns: 'usage',
+                  corejs: 'core-js@3',
+                  forceAllTransforms: true
+                }
+              ]
+            ],
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-syntax-dynamic-import',
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  helpers: false
+                }
+              ]
+            ]
+          },
+          options,
+          this.babelConfig
+        ],
         {
-          cacheDirectory: true,
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                modules: false,
-                targets: {
-                  browsers: ['> 2%']
-                },
-                useBuiltIns: 'usage',
-                forceAllTransforms: true
-              }
-            ]
-          ],
-          plugins: [
-            ['@babel/plugin-proposal-object-rest-spread'],
-            ['@babel/plugin-syntax-dynamic-import'],
-            [
-              '@babel/plugin-transform-runtime',
-              {
-                // polyfill: false,
-                helpers: false
-              }
-            ]
-          ]
-        },
-        options
+          arrayMerge: (destinationArray, sourceArray, options) => sourceArray
+        }
       )
     },
 
